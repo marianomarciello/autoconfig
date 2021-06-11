@@ -15,6 +15,11 @@ Plug 'ycm-core/YouCompleteMe'
 " nerdtree
 Plug 'preservim/nerdtree'
 
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 
 set rnu
@@ -128,6 +133,8 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+" super funky exit
+inoremap <A-CR> <Esc>
 
 " trasparency
 hi Normal guibg=NONE ctermbg=NONE
@@ -156,6 +163,13 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" Telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " redundat space at the end of the line
 syn match RedundantSpaces /\s\+$/
