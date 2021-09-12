@@ -1,7 +1,7 @@
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 
 " latex syntax
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'for': 'tex' }
 " latex preview
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 " gruvbox
@@ -10,11 +10,14 @@ Plug 'morhetz/gruvbox'
 Plug 'vimwiki/vimwiki'
 " vim hex color
 Plug 'ap/vim-css-color'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
 " youcomplete me
 Plug 'ycm-core/YouCompleteMe'
 " nerdtree
 Plug 'preservim/nerdtree'
 
+Plug 'jceb/vim-orgmode'
 " telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -24,6 +27,8 @@ call plug#end()
 
 set rnu
 set nu
+
+set termguicolors
 
 " Status bar
 function! GitBranch()
@@ -86,8 +91,8 @@ filetype plugin on
 syntax on
 let g:automatic_nested_syntaxes = 1
 let g:vimwiki_list =
-			\ [{'path' : '~/vimwiki'},
-			\ {'path' : '~/vimwiki/rust'}]
+			\ [{'path' : '~/.local/vimwiki'},
+			\ {'path' : '~/.local/vimwiki/rust'}]
  " latex-previe
 let g:livepreview_previewer = 'zathura'
 "navication terminal
