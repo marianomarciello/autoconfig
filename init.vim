@@ -140,6 +140,7 @@ nnoremap <A-l> <C-w>l
 
 " super funky exit
 inoremap <A-CR> <Esc>
+imap jk <Esc>
 
 " trasparency
 hi Normal guibg=NONE ctermbg=NONE
