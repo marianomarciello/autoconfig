@@ -1,16 +1,15 @@
-call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " latex syntax
 Plug 'lervag/vimtex', { 'for': 'tex' }
 " latex preview
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-" gruvbox
+" themes
 Plug 'morhetz/gruvbox'
 " vimwiki
 Plug 'vimwiki/vimwiki'
 " vim hex color
 Plug 'ap/vim-css-color'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " youcomplete me
 Plug 'ycm-core/YouCompleteMe'
@@ -19,7 +18,8 @@ Plug 'preservim/nerdtree'
 
 Plug 'jceb/vim-orgmode'
 " telescope
-Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -44,9 +44,9 @@ endfunction
 set laststatus=2
 
 set statusline=
-set statusline+=%#PmenuSel#
+set statusline+=%#CursorLineNr#
 set statusline+=%{StatuslineGit()}
-set statusline+=%#LineNr#
+set statusline+=%#DiffChange#
 set statusline+=\ %f
 set statusline+=%m
 set statusline+=%=
@@ -57,8 +57,12 @@ set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ [%l:%c]
 
+"colorscheme molokai
 colorscheme gruvbox
+set background=dark
+"let g:gruvbox_constrat_dark = 'hard'
 set cc=80
+"hi ColorColumn ctermbg=NONE guibg=Magenta
 " open termianl in vim \\t
 noremap <Leader>\t :sp +te<CR>
 " vertical
@@ -91,39 +95,11 @@ filetype plugin on
 syntax on
 let g:automatic_nested_syntaxes = 1
 let g:vimwiki_list =
-			\ [{'path' : '~/.local/vimwiki'},
-			\ {'path' : '~/.local/vimwiki/rust'}]
+			\ [{'path' : '~/projects/note/'}]
  " latex-previe
 let g:livepreview_previewer = 'zathura'
 "navication terminal
-" Status bar
-function! GitBranch()
-	return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
 
-function! StatuslineGit()
-	let l:branchname = GitBranch()
-	" se c'è un nome lo metto altrimenti metto vuoto
-	return strlen(l:branchname) > 0 ? '  '.l:branchname.' ':''
-endfunction
-
-set laststatus=2
-
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%{StatuslineGit()}
-set statusline+=%#LineNr#
-set statusline+=\ %f
-set statusline+=%m
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\%y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
-set statusline+=\ [%l:%c]
-
-colorscheme gruvbox
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
@@ -139,11 +115,15 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " super funky exit
-inoremap <A-CR> <Esc>
 imap jk <Esc>
 
 " trasparency
-hi Normal guibg=NONE ctermbg=NONE
+"hi Normal guibg=none ctermbg=none
+"hi LineNr guibg=none ctermbg=none
+"hi Folded guibg=none ctermbg=none
+"hi NonText guibg=none ctermbg=none
+"hi SpecialKey guibg=none ctermbg=none
+"hi SignColumn guibg=none ctermbg=none
 
 " change mapleader
 let mapleader = " "
@@ -152,6 +132,11 @@ noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>j :wincmd j<CR>
 noremap <silent> <leader>h :wincmd h<CR>
 noremap <silent> <leader>l :wincmd l<CR>
+noremap <silent> <leader>= :wincmd =<CR>
+" rotate
+noremap <silent> <leader>J :wincmd J<CR>
+" rotate
+noremap <silent> <leader>H :wincmd H<CR>
 noremap <silent> <leader>s :split   <CR>
 noremap <silent> <leader>v :vsplit   <CR>
 noremap <silent> <leader>q :quit<CR>
@@ -165,7 +150,7 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 " Nerdtree
-nnoremap <leader>n :NERDTreeFocus<CR>
+"nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
@@ -180,3 +165,33 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " redundat space at the end of the line
 syn match RedundantSpaces /\s\+$/
 command! RedundantSpace : highlight RedundantSpaces ctermbg=red guibg=red
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+" Highlight trailing spaces
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Relative or absolute number toggle
+function! NumberToggle()
+    if(&nu == 1 && &rnu == 1)
+        set nu!
+        set rnu!
+    else
+        set rnu
+        set nu
+    endif
+endfunction
+
+nnoremap <leader>n :call NumberToggle()<CR>
