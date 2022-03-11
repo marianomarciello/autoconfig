@@ -58,7 +58,9 @@ set statusline+=\ %p%%
 set statusline+=\ [%l:%c]
 
 "colorscheme molokai
-colorscheme gruvbox
+"colorscheme gruvbox
+"colorscheme elflord
+colorscheme 256_noir
 set background=dark
 "let g:gruvbox_constrat_dark = 'hard'
 set cc=80
@@ -98,21 +100,6 @@ let g:vimwiki_list =
 			\ [{'path' : '~/projects/note/'}]
  " latex-previe
 let g:livepreview_previewer = 'zathura'
-"navication terminal
-
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-" not for input mode
-"inoremap <A-h> <C-\><C-N><C-w>h
-"inoremap <A-j> <C-\><C-N><C-w>j
-"inoremap <A-k> <C-\><C-N><C-w>k
-"inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
 
 " super funky exit
 imap jk <Esc>
