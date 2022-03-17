@@ -58,9 +58,10 @@ set statusline+=\ %p%%
 set statusline+=\ [%l:%c]
 
 "colorscheme molokai
-"colorscheme gruvbox
+colorscheme gruvbox
 "colorscheme elflord
-colorscheme 256_noir
+"colorscheme 256_noir
+"colorscheme gotham
 set background=dark
 "let g:gruvbox_constrat_dark = 'hard'
 set cc=80
@@ -130,6 +131,13 @@ noremap <silent> <leader>q :quit<CR>
 nnoremap <leader>pv :Ex<CR>
 
 
+"    ____  __            _               __               __             __
+"   / __ \/ /_  ______ _(_)___     _____/ /_  ____  _____/ /________  __/ /_
+"  / /_/ / / / / / __ `/ / __ \   / ___/ __ \/ __ \/ ___/ __/ ___/ / / / __/
+" / ____/ / /_/ / /_/ / / / / /  (__  ) / / / /_/ / /  / /_/ /__/ /_/ / /_
+"/_/   /_/\__,_/\__, /_/_/ /_/  /____/_/ /_/\____/_/   \__/\___/\__,_/\__/
+"              /____/
+
 " Youcomplete shortcut
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
@@ -148,6 +156,14 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" GitGutter
+" Disable all gitgutter key mapping (I want only info)
+let g:gitgutter_map_keys = 0
+noremap <leader>gv <cmd>GitGutterPreviewHunk <cr>
+noremap <leader>gu <cmd>GitGutterUndoHunk <cr>
+noremap <leader>gn <cmd>GitGutterNextHunk <cr>
+noremap <leader>gp <cmd>GitGutterPrevHunk <cr>
 
 " redundat space at the end of the line
 syn match RedundantSpaces /\s\+$/
