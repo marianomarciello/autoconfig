@@ -1,6 +1,13 @@
 # autoconfig
-This repository contains configuration file and one main script.
-The script `script.sh` setup quickly some tools.
+This repository contains configuration file and one main script.\
+The main script setup the configuration and install some tools. See
+[supported tools](#supported tools)
+
+## usage
+Just run `script.sh`
+```sh
+$ ./script.sh
+```
 
 ## supported tools
 * neovim
