@@ -7,10 +7,13 @@ POLYBAR_CONFIG=$HOME/.config/polybar/config.ini
 POLYBAR_LAUNCH=$HOME/.config/polybar/launch.sh
 
 echo_green() {
-    printf "\033[0;32m$1\033[0m\n"
+    printf "\e[32m$1\e[0m"
 }
 echo_red() {
-    printf "\033[0;31m$1\033[0m\n"
+    printf "\e[31m$1\e[0m"
+}
+echo_blue() {
+    printf "\e[34m$1\e[0m"
 }
 
 intro() {
@@ -33,7 +36,7 @@ install_configure() {
     pkg=$1
     local_file=$2
     config_file=$3
-    echo "=Installing $pkg="
+    echo_blue "=Installing $pkg=\n"
     if [[ ! $(pacman -Q | grep $pkg) ]]; then
         sudo pacman -S $pkg
     fi
@@ -42,10 +45,10 @@ install_configure() {
         cp $config_file $config_file.bk
     fi
     if ! $(cp $local_file $config_file) ; then
-        echo_red "$pkg configuration failed!"
+        echo_red "$pkg configuration failed!\n"
         return -1
     fi
-    echo_green "$pkg configuration success!"
+    echo_green "$pkg configuration success!\n"
     return 0
 }
 
