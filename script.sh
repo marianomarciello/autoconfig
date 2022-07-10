@@ -3,6 +3,8 @@
 
 NVIM_CONFIG=$HOME/.config/nvim/init.vim
 TMUX_CONFIG=$HOME/.tmux.conf
+POLYBAR_CONFIG=$HOME/.config/polybar/config.ini
+POLYBAR_LAUNCH=$HOME/.config/polybar/launch.sh
 
 echo_green() {
     printf "\033[0;32m$1\033[0m\n"
@@ -50,3 +52,5 @@ install_configure() {
 intro
 install_configure neovim config/init.vim $NVIM_CONFIG
 install_configure tmux config/tmux.conf $TMUX_CONFIG
+install_configure polybar config/config.ini $POLYBAR_CONFIG
+install_configure polybar config/launch.sh $POLYBAR_LAUNCH
