@@ -22,6 +22,7 @@ Plug 'jceb/vim-orgmode'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
