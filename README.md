@@ -14,6 +14,7 @@ $ ./script.sh
 * tmux
 * polybar
 * i3
+* zellij
 
 ## neovim
 Install *vim-plug* as explained [there](https://github.com/junegunn/vim-plug#unix-linux).
