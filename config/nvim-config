@@ -1,24 +1,26 @@
 call plug#begin('~/.config/nvim/plugged')
 
-" latex syntax
+" latex syntax latex preview with \ll
 Plug 'lervag/vimtex', { 'for': 'tex' }
-" latex preview
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 " themes
 Plug 'morhetz/gruvbox'
+Plug 'whatyouhide/vim-gotham'
 " vimwiki
 Plug 'vimwiki/vimwiki'
 " vim hex color
 Plug 'ap/vim-css-color'
 
 " youcomplete me
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nerdtree
 Plug 'preservim/nerdtree'
 
+Plug 'airblade/vim-gitgutter'
+
 Plug 'jceb/vim-orgmode'
 " telescope
-" Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -62,7 +64,7 @@ set statusline+=\ [%l:%c]
 colorscheme gruvbox
 "colorscheme elflord
 "colorscheme 256_noir
-"colorscheme gotham
+colorscheme gotham
 set background=dark
 "let g:gruvbox_constrat_dark = 'hard'
 set cc=80
@@ -101,7 +103,7 @@ let g:automatic_nested_syntaxes = 1
 let g:vimwiki_list =
 			\ [{'path' : '~/projects/note/'}]
  " latex-previe
-let g:livepreview_previewer = 'zathura'
+let g:vimtex_view_general_viewer= 'zathura'
 
 " super funky exit
 imap jk <Esc>
@@ -140,16 +142,47 @@ nnoremap <leader>pv :Ex<CR>
 "              /____/
 
 " Youcomplete shortcut
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" coc
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+" Remap <C-f> and <C-b> to scroll float windows/popups
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Nerdtree
 "nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+"nnoremap <C-n> :NERDTree<CR>
+"nnoremap <C-t> :NERDTreeToggle<CR>
+"nnoremap <C-f> :NERDTreeFind<CR>
+
+" Coc explorer
+noremap <leader>t <Cmd>CocCommand explorer<cr>
 
 " Telescope
 " Find files using Telescope command-line sugar.
@@ -161,10 +194,10 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " GitGutter
 " Disable all gitgutter key mapping (I want only info)
 let g:gitgutter_map_keys = 0
-noremap <leader>gv <cmd>GitGutterPreviewHunk <cr>
-noremap <leader>gu <cmd>GitGutterUndoHunk <cr>
-noremap <leader>gn <cmd>GitGutterNextHunk <cr>
-noremap <leader>gp <cmd>GitGutterPrevHunk <cr>
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap [u <Plug>(GitGutterUndoHunk)
+"noremap <leader>gv <cmd>GitGutterPreviewHunk <cr>
 
 " redundat space at the end of the line
 syn match RedundantSpaces /\s\+$/
@@ -199,3 +232,6 @@ function! NumberToggle()
 endfunction
 
 nnoremap <leader>n :call NumberToggle()<CR>
+
+" alacritty test
+set mouse=a

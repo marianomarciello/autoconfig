@@ -6,6 +6,7 @@ TMUX_CONFIG=$HOME/.tmux.conf
 POLYBAR_CONFIG=$HOME/.config/polybar/config.ini
 POLYBAR_LAUNCH=$HOME/.config/polybar/launch.sh
 I3_CONFIG=$HOME/.config/i3/config
+ZELLIJ_CONFIG=$HOME/.config/zellij/config.kdl
 
 echo_green() {
     printf "\e[32m$1\e[0m"
@@ -37,19 +38,19 @@ install_configure() {
     pkg=$1
     local_file=$2
     config_file=$3
-    echo_blue "=Installing $pkg=\n"
+    echo_blue "[+] Installing $pkg\n"
     if [[ ! $(pacman -Q | grep $pkg) ]]; then
         sudo pacman -S $pkg
     fi
-    echo "Updating configuration file in $config_file"
+    echo "[+] Updating configuration file in $config_file"
     if [[ -f "$config_file" ]]; then
         cp $config_file $config_file.bk
     fi
     if ! $(cp $local_file $config_file) ; then
-        echo_red "$pkg configuration failed!\n"
+        echo_red "[Error] $pkg configuration failed!\n"
         return -1
     fi
-    echo_green "$pkg configuration success!\n"
+    echo_green "[Success] $pkg configuration success!\n"
     return 0
 }
 
@@ -59,3 +60,4 @@ install_configure  tmux     config/tmux.conf          $TMUX_CONFIG
 install_configure  polybar  config/polybar-config     $POLYBAR_CONFIG
 install_configure  polybar  config/launch-polybar.sh  $POLYBAR_LAUNCH
 install_configure  i3       config/i3-config          $I3_CONFIG
+install_configure  zellij   config/zellij-config      $ZELLIJ_CONFIG
