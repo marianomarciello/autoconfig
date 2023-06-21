@@ -12,6 +12,7 @@ Plug 'ap/vim-css-color'
 
 " youcomplete me
 "Plug 'ycm-core/YouCompleteMe'
+" coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nerdtree
 Plug 'preservim/nerdtree'
@@ -25,6 +26,11 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'rust-lang/rust.vim'
+
+" status bar
+ Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
 
@@ -44,24 +50,25 @@ function! StatuslineGit()
 	return strlen(l:branchname) > 0 ? '  '.l:branchname.' ':''
 endfunction
 
-set laststatus=2
+"set laststatus=2
+" Manual status line
 
-set statusline=
-set statusline+=%#CursorLineNr#
-set statusline+=%{StatuslineGit()}
-set statusline+=%#DiffChange#
-set statusline+=\ %f
-set statusline+=%m
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\%y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
-set statusline+=\ [%l:%c]
+"set statusline=
+"set statusline+=%#CursorLineNr#
+"set statusline+=%{StatuslineGit()}
+"set statusline+=%#DiffChange#
+"set statusline+=\ %f
+"set statusline+=%m
+"set statusline+=%=
+"set statusline+=%#CursorColumn#
+"set statusline+=\%y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ [%l:%c]
 
 "colorscheme molokai
-colorscheme gruvbox
+"colorscheme gruvbox
 "colorscheme elflord
 "colorscheme 256_noir
 colorscheme gotham
@@ -235,3 +242,7 @@ nnoremap <leader>n :call NumberToggle()<CR>
 
 " alacritty test
 set mouse=a
+
+lua << END
+require('lualine').setup()
+END
