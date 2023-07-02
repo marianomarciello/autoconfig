@@ -11,7 +11,10 @@
 (
     modkey: "Mod4",
     mousekey: "Mod4",
-    workspaces: [],
+    workspaces: [
+    ( output: "eDP1", y: 0, x: 0, height: 1080, width: 1920),
+    ( output: "HDMI1", y: 0, x: 1920, height: 1080, width: 1920),
+    ],
     tags: [
         "\u{f113}",
         "\u{f0ac}",
@@ -40,7 +43,14 @@
     ],
     layout_mode: Workspace,
     insert_behavior: Bottom,
-    scratchpad: [],
+    scratchpad: [
+    ( name: "Alacritty", // This is the name which is referenced when calling (case-sensitive)
+      value: "alacritty", // The command to load the application if it isn't started (first application to start)
+      // x, y, width, height are in pixels when an integer is inputted or a percentage when a float is inputted.
+      // These values are relative to the size of the workspace, and will be restricted depending on the workspace size.
+      x: 640, y: 180, height: 640, width: 800
+    ),
+    ],
     window_rules: [],
     disable_current_tag_swap: true,
     disable_tile_drag: false,
@@ -56,6 +66,7 @@
         (command: Execute, value: "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'"
             , modifier: ["modkey"], key: "c"),
         (command: CloseWindow, value: "", modifier: ["modkey"], key: "w"),
+        (command: ToggleScratchPad, value: "Alacritty", modifier: ["modkey"], key: "p"),
         (command: SoftReload, value: "", modifier: ["modkey", "Shift"], key: "r"),
         (command: Execute, value: "loginctl kill-session $XDG_SESSION_ID", modifier: ["modkey", "Shift"], key: "x"),
         (command: MoveToLastWorkspace, value: "", modifier: ["modkey", "Shift"], key: "w"),
