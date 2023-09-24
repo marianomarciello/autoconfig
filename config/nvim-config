@@ -5,6 +5,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 " themes
 Plug 'morhetz/gruvbox'
 Plug 'whatyouhide/vim-gotham'
+Plug 'folke/tokyonight.nvim'
 " vimwiki
 Plug 'vimwiki/vimwiki'
 " vim hex color
@@ -28,103 +29,45 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'rust-lang/rust.vim'
 
 " status bar
- Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'nvim-tree/nvim-web-devicons'
 
+
+" snippets
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 call plug#end()
 
+" == General vim settings (start) ==
 set rnu
 set nu
-
 set termguicolors
-
-" Status bar
-function! GitBranch()
-	return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-	let l:branchname = GitBranch()
-	" se c'è un nome lo metto altrimenti metto vuoto
-	return strlen(l:branchname) > 0 ? '  '.l:branchname.' ':''
-endfunction
-
-"set laststatus=2
-" Manual status line
-
-"set statusline=
-"set statusline+=%#CursorLineNr#
-"set statusline+=%{StatuslineGit()}
-"set statusline+=%#DiffChange#
-"set statusline+=\ %f
-"set statusline+=%m
-"set statusline+=%=
-"set statusline+=%#CursorColumn#
-"set statusline+=\%y
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ [%l:%c]
-
-"colorscheme molokai
-"colorscheme gruvbox
-"colorscheme elflord
-"colorscheme 256_noir
-colorscheme gotham
-set background=dark
-"let g:gruvbox_constrat_dark = 'hard'
 set cc=80
-"hi ColorColumn ctermbg=NONE guibg=Magenta
-" open termianl in vim \\t
-noremap <Leader>\t :sp +te<CR>
-" vertical
-" noremap <Leader>\t :vs +te<CR>
 noremap zz : w<CR>
-
-" do not set number when i open a termianl
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " allows you to use Ctrl-c on terminal window
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-augroup END
-
-" We don't need NERDTREE
-" Vexplore
-let g:netrw_banner = 0 " suppress ungly banner
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 0
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-
-
-" vimwiki settings
 set nocompatible
-filetype plugin on
-syntax on
-let g:automatic_nested_syntaxes = 1
-let g:vimwiki_list =
-			\ [{'path' : '~/projects/note/'}]
- " latex-previe
-let g:vimtex_view_general_viewer= 'zathura'
-
 " super funky exit
 imap jk <Esc>
-
-" trasparency
-"hi Normal guibg=none ctermbg=none
-"hi LineNr guibg=none ctermbg=none
-"hi Folded guibg=none ctermbg=none
-"hi NonText guibg=none ctermbg=none
-"hi SpecialKey guibg=none ctermbg=none
-"hi SignColumn guibg=none ctermbg=none
-
 " change mapleader
 let mapleader = " "
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+" redundat space at the end of the line
+syn match RedundantSpaces /\s\+$/
+command! RedundantSpace : highlight RedundantSpaces ctermbg=red guibg=red
+
+filetype plugin indent on
+" Highlight trailing spaces
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>j :wincmd j<CR>
@@ -138,8 +81,37 @@ noremap <silent> <leader>H :wincmd H<CR>
 noremap <silent> <leader>s :split   <CR>
 noremap <silent> <leader>v :vsplit   <CR>
 noremap <silent> <leader>q :quit<CR>
-nnoremap <leader>pv :Ex<CR>
+nnoremap <leader>pv :Lex<CR>
 
+" We don't need NERDTREE
+" Vexplore
+let g:netrw_banner = 0 " suppress ungly banner
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" Relative or absolute number toggle
+function! NumberToggle()
+    if(&nu == 1 && &rnu == 1)
+        set nu!
+        set rnu!
+    else
+        set rnu
+        set nu
+    endif
+endfunction
+
+nnoremap <leader>n :call NumberToggle()<CR>
+
+"colorscheme molokai
+"colorscheme gruvbox
+"colorscheme elflord
+"colorscheme 256_noir
+"colorscheme gotham
+colorscheme tokyonight-night
+set background=dark
+" == General vim settings (end) ==
 
 "    ____  __            _               __               __             __
 "   / __ \/ /_  ______ _(_)___     _____/ /_  ____  _____/ /________  __/ /_
@@ -148,10 +120,14 @@ nnoremap <leader>pv :Ex<CR>
 "/_/   /_/\__,_/\__, /_/_/ /_/  /____/_/ /_/\____/_/   \__/\___/\__,_/\__/
 "              /____/
 
-" Youcomplete shortcut
-"nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-"nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" vimwiki settings
+syntax on
+filetype plugin on
+let g:automatic_nested_syntaxes = 1
+let g:vimwiki_list =
+			\ [{'path' : '~/Projects/my_wiki/'}]
+ " latex-previe
+let g:vimtex_view_general_viewer= 'zathura'
 
 " coc
 " GoTo code navigation
@@ -182,11 +158,17 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Nerdtree
-"nnoremap <leader>n :NERDTreeFocus<CR>
-"nnoremap <C-n> :NERDTree<CR>
-"nnoremap <C-t> :NERDTreeToggle<CR>
-"nnoremap <C-f> :NERDTreeFind<CR>
+" Remap to trigger coc autocomplition
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" tab -> next suggestion
+" s-tab -> prev suggestion
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
 " Coc explorer
 noremap <leader>t <Cmd>CocCommand explorer<cr>
@@ -197,6 +179,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fG <cmd>Telescope grep_string<cr>
 
 " GitGutter
 " Disable all gitgutter key mapping (I want only info)
@@ -204,45 +187,11 @@ let g:gitgutter_map_keys = 0
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 nmap [u <Plug>(GitGutterUndoHunk)
-"noremap <leader>gv <cmd>GitGutterPreviewHunk <cr>
-
-" redundat space at the end of the line
-syn match RedundantSpaces /\s\+$/
-command! RedundantSpace : highlight RedundantSpaces ctermbg=red guibg=red
-
-filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
-
-" Highlight trailing spaces
-" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" Relative or absolute number toggle
-function! NumberToggle()
-    if(&nu == 1 && &rnu == 1)
-        set nu!
-        set rnu!
-    else
-        set rnu
-        set nu
-    endif
-endfunction
-
-nnoremap <leader>n :call NumberToggle()<CR>
-
-" alacritty test
-set mouse=a
 
 lua << END
-require('lualine').setup()
+local ok, _ = pcall(require, 'my-modules')
+if not ok then
+    -- not loaded
+    echo "[Error] during my-modules load"
+end
 END
