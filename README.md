@@ -1,6 +1,6 @@
 # autoconfig
 This repository contains configuration files and one main script.\
-The main script setup the configuration and install some tools. See
+The main script setups configurations and install tools. See
 [supported tools](#supported-tools)
 
 ## usage
@@ -18,4 +18,4 @@ $ ./script.sh
 * leftwm
 
 ## neovim
-Install *vim-plug* as explained [there](https://github.com/junegunn/vim-plug#unix-linux).
+Install *vim-plug* as explained [here](https://github.com/junegunn/vim-plug#unix-linux).
