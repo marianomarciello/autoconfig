@@ -20,16 +20,21 @@ echo_blue() {
 }
 
 intro() {
-    echo "Script for basic costumization of a new OS (Archbased)."
-    echo "This script install tmux and nvim and try to configure them as usual"
-    echo " _   _                 "
-    echo "| \ | | __ _ _ __ __ _ "
-    echo "|  \| |/ _\` | '__/ _\` |"
-    echo "| |\  | (_| | | | (_| |"
-    echo "|_| \_|\__,_|_|  \__,_|"
-    echo "                       "
+    echo "Script for basic costumization of a new OS (Tested on Arch only)."
+    echo "This script configures several tools with their configurations file."
+    echo "The current configuration file will be moved to a file with the same"
+    echo -e "name but with '.bk' as extension.\n"
     echo "Credits: https://github.com/marianomarciello"
     echo -e "\n"
+
+    while true; do
+        read -p "Do you wish to continue? [yn]" yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer [Yy] or [Nn].";;
+        esac
+    done
 }
 
 install_configure() {
