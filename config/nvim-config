@@ -111,6 +111,15 @@ nnoremap <leader>n :call NumberToggle()<CR>
 "colorscheme gotham
 colorscheme tokyonight-night
 set background=dark
+
+" autoclosing stuff like quotes and brackets
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 " == General vim settings (end) ==
 
 "    ____  __            _               __               __             __
