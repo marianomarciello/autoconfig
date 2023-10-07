@@ -6,6 +6,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'morhetz/gruvbox'
 Plug 'whatyouhide/vim-gotham'
 Plug 'folke/tokyonight.nvim'
+Plug 'crusoexia/vim-monokai'
 " vimwiki
 Plug 'vimwiki/vimwiki'
 " vim hex color
@@ -110,12 +111,13 @@ nnoremap <leader>n :call NumberToggle()<CR>
 "colorscheme 256_noir
 "colorscheme gotham
 colorscheme tokyonight-night
+colorscheme monokai
 set background=dark
 
 " autoclosing stuff like quotes and brackets
 inoremap " ""<left>
 inoremap ' ''<left>
-inoremap ( ()<left>
+""inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
@@ -176,8 +178,10 @@ endfunction
 
 " tab -> next suggestion
 " s-tab -> prev suggestion
+" enter -> choose the current suggestion
 inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " Coc explorer
 noremap <leader>t <Cmd>CocCommand explorer<cr>
