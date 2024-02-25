@@ -12,8 +12,8 @@
     modkey: "Mod4",
     mousekey: "Mod4",
     workspaces: [
-    ( output: "eDP1", y: 0, x: 0, height: 1080, width: 1920),
-    ( output: "HDMI1", y: 0, x: 1920, height: 1080, width: 1920),
+    ( output: "eDP1", y: 0, x: 1920, height: 1080, width: 1920),
+    ( output: "HDMI1", y: 0, x: 0, height: 1080, width: 1920),
     ],
     tags: [
         "1:\u{f113}",
@@ -102,8 +102,8 @@
         (command: IncreaseMainWidth, value: "3", modifier: ["modkey", "Shift"], key: "Right"),
         (command: DecreaseMainWidth, value: "3", modifier: ["modkey", "Shift"], key: "Left"),
         (command: ToggleFullScreen, value: "", modifier: ["modkey"], key: "f"),
-        (command: Execute, value: "pactl set-sink-volume @DEFAULT_SINK +5%", modifier: [], key: "XF86XK_AudioRaiseVolume"),
-        (command: Execute, value: "pactl set-sink-volume @DEFAULT_SINK -5%", modifier: [], key: "XF86XK_AudioLowerVolume"),
+        (command: Execute, value: "pactl set-sink-volume @DEFAULT_SINK@ +5%", modifier: [], key: "XF86AudioRaiseVolume"),
+        (command: Execute, value: "pactl set-sink-volume @DEFAULT_SINK@ -5%", modifier: [], key: "XF86AudioLowerVolume"),
         (command: Execute, value: "pactl set-sink-mute @DEFAULT_SINK toggle", modifier: [], key: "XF86XK_AudioMute"),
         (command: Execute, value: "pactl set-source-mute @DEFAULT_SOURCE toggle", modifier: [], key: "XF86XK_AudioMicMute"),
         (command: Execute, value: "mpc toggle", modifier: [], key: "XF86XK_AudioPlay"),
