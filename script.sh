@@ -8,6 +8,7 @@ POLYBAR_LAUNCH=$HOME/.config/polybar/launch.sh
 I3_CONFIG=$HOME/.config/i3/config
 ZELLIJ_CONFIG=$HOME/.config/zellij/config.kdl
 LEFTWM_CONFIG=$HOME/.config/leftwm/config.ron
+FISH_CONFIG=$HOME/.config/fish/config.fish
 
 echo_green() {
     printf "\e[32m$1\e[0m"
@@ -68,3 +69,4 @@ install_configure  polybar  config/launch-polybar.sh  $POLYBAR_LAUNCH
 install_configure  i3       config/i3-config          $I3_CONFIG
 install_configure  zellij   config/zellij-config      $ZELLIJ_CONFIG
 install_configure  leftwm   config/leftwm-config      $LEFTWM_CONFIG
+install_configure  fish     config/fish-config        $FISH_CONFIG
