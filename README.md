@@ -1,14 +1,14 @@
 # Dotfiles
 
 Stow compatible dotfiles.
-This repo contains dotfiles for the following tools:
+This repo contains dotfiles for the following tools 🛠️:
 
-*  neovim
-*  tmux
-* 󰄨 polybar
-*  i3
-*  zellij
-*  leftwm
+* neovim
+* tmux
+* polybar
+* i3
+* zellij
+* leftwm
 
 ## Usage
 
