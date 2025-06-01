@@ -1,15 +1,8 @@
-# autoconfig
-This repository contains configuration files and one main script.\
-The main script setups configurations and install tools. See
-[supported tools](#supported-tools)
+# Dotfiles
 
-## usage
-Just run `script.sh`
-```sh
-$ ./script.sh
-```
+Stow compatible dotfiles.
+This repo contains dotfiles for the following tools:
 
-## supported tools
 * neovim
 * tmux
 * polybar
@@ -17,5 +10,18 @@ $ ./script.sh
 * zellij
 * leftwm
 
-## neovim
-Install *vim-plug* as explained [here](https://github.com/junegunn/vim-plug#unix-linux).
+## Usage
+
+To install all the configuration files use the following command:
+
+```sh
+cd dotfiles
+stow . -t $HOME
+```
+
+If only one tool needs to be installed (e.g. zeelij) use the following command:
+
+```sh
+cd dotfiles/.config
+stow zellij -t $HOME/.config/zellij
+```
