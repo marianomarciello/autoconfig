@@ -15,12 +15,11 @@ map("n", "<leader>h", ":wincmd h<CR>", { desc = "General | Go to left window", s
 map("n", "<leader>l", ":wincmd l<CR>", { desc = "General | Go to right window", silent = true })
 map("n", "<leader>=", ":wincmd =<CR>", { desc = "General | Resize in equal space", silent = true })
 
-
 wk.add(
--- Sort
-  {
-    { "<leader>cs", group = "Sort", mode = "v", icon = "" }
-  }
+    -- Sort
+    {
+        { "<leader>cs", group = "Sort", mode = "v", icon = "" },
+    }
 )
 map("v", "<leader>csa", ":%sort<cr>", { desc = "Ascending" })
 map("v", "<leader>csd", ":%sort!<cr>", { desc = "Descending" })
