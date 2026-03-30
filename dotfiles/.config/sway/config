@@ -12,9 +12,15 @@
 set $mod Mod4
 #set $mod Mod1
 
-set $terminal foot
+set $terminal alacritty
 
-set $wallpaper ~/Documents/Immagini/porco_rosso_biata.jpg
+set $browser firefox
+
+set $wallpaper ~/Documents/Immagini/anime_city.jpg
+
+set $notes ~/Projects/my_wiki/
+
+set $editor nvim
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -30,12 +36,11 @@ font pango:Ubuntu Mono 8
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec_always --no-startup-id swaybg -i $wallpaper
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #exec_always --no-startup-id picom --xrender-sync --xrender-sync-fence
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec_always --no-startup-id sh ~/.config/sway/bar.sh
+exec_always --no-startup-id bash ~/.config/sway/setup.sh $wallpaper
 exec --no-startup-id nm-applet
 exec --no-startup-id greenclip daemon
 exec --no-startup-id mpd
@@ -46,6 +51,16 @@ exec xinput set-prop "11" "libinput Tapping Enabled" 1
 #exec_always xrandr --output HDMI1 --mode 1920x1080 -r 60.00 --right-of eDP1
 exec_always xrandr --output HDMI1 --mode 1920x1080 -r 60.0 --left-of eDP1
 exec_always xrandr --output eDP1 --mode 1600x900 --left-of HDMI1
+output * bg $wallpaper fill
+
+# Idle
+# Lock after 10min
+# Turn off after 15min
+exec swayidle -w \
+		timeout 600 'swaylock -f -c 000000' \
+		timeout 9000 'swaymsg "output * dpms off"' \
+		     resume 'swaymsg "output * dpms on"' \
+             before-sleep 'swaylock -f -c 000000'
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -66,6 +81,11 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec $terminal
+# start a browser
+bindsym $mod+b exec $browser
+
+# open nvim in the notes.
+bindsym $mod+i exec $terminal --working-directory ~/Projects/my_wiki/ -e $editor
 
 # kill focused window
 bindsym $mod+w kill
@@ -81,8 +101,8 @@ bindsym $mod+m exec fuzzel
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 # lock with i3
-bindsym $mod+Escape exec i3lock -c 000000
-bindsym Print exec flameshot gui
+bindsym $mod+Escape exec swaylock -c 000000
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
 
 # change focus
@@ -290,7 +310,7 @@ for_window [class="Composer"] floating enable
 for_window [class="PenTablet"] floating enable
 
 # disable mouse focus
-focus_follows_mouse no
+# focus_follows_mouse no
 # enable mouse warpling (when changing workspace follow the focused workspace)
 # between different display
 mouse_warping output
