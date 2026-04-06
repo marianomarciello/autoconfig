@@ -14,7 +14,7 @@ set $mod Mod4
 
 set $terminal alacritty
 
-set $browser firefox
+set $screenshot grim -g $(slurp) - | wl-copy
 
 set $wallpaper ~/Documents/Immagini/anime_city.jpg
 
@@ -81,8 +81,9 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec $terminal
-# start a browser
-bindsym $mod+b exec $browser
+
+# screenshot
+bindsym $mod+b exec $screenshot
 
 # open nvim in the notes.
 bindsym $mod+i exec $terminal --working-directory ~/Projects/my_wiki/ -e $editor
@@ -308,6 +309,7 @@ workspace 10 output eDP1
 for_window [class="calculator"] floating enable
 for_window [class="Composer"] floating enable
 for_window [class="PenTablet"] floating enable
+for_window [title="^Figure .*"] floating enable
 
 # disable mouse focus
 # focus_follows_mouse no
